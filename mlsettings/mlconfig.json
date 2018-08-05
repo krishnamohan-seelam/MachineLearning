@@ -1,0 +1,18 @@
+{
+	"DEV":{
+        "ML_DATASOURCE":"D:\\DataSource",
+		"ML_PATH":"D:\\MachineLearning"
+    },
+	"UAT":{
+        "ML_DATASOURCE":"D:\\DataSource",
+		"ML_PATH":"D:\\MachineLearning"
+    },
+    "REG":{
+       "ML_DATASOURCE":"D:\\DataSource",
+	   "ML_PATH":"D:\\MachineLearning"
+    },
+    "PRD":{
+        "ML_DATASOURCE":"D:\\DataSource",
+		"ML_PATH":"D:\\MachineLearning"
+    }
+}

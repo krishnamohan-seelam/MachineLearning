@@ -1,0 +1,12 @@
+
+ML_ENVIRONMENT-Environment variable  that describes  UAT/DEV/PRD
+ML_PATH-Environment variable  that describes Application Path 
+ML_SETTINGS- Environment variable  that describes location of json configuration file 
+ML_DATASOURCE-Environment variable that describes data source 
+
+ 
+
+based on the above two variables , we will load  configuration details from  json configuration file
+
+if the  variables have  null values , default locations  would be loaded
+

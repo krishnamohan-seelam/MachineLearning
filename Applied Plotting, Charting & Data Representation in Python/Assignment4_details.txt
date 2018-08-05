@@ -1,0 +1,9 @@
+Cairo's principle of truthfulness : I made sure that   visualization used the correct data. The dataset consisted of   details various states,  causes  etc. Since i am interested on the  question of which age category  males/females  prone to suicide at national level .  I used data filtering  available  in pandas to select the required data which would prevent misinterpretation of data.
+
+Cairo's principle of beauty: As Alberto Cairo said in the book "The truthful art" -data visualization isn’t the same as data decoration.I tried to present the information in  much simpler, clearer, and tried to visualize in an elegant way.
+
+Cairo's principle of functionality:I wanted to track which  age category poses more risk to suicides in males and  females  over time line of 2001 -2013 . I represented  this information  via  line graph.    
+
+Cairo's principle of insightfulness:I tried visualize  the question Which age category poses more risk to suicides in males and  females ?  using  histogram and  pie chart but  these were complicating the visualization and not clean or clear in explaining the insight to the above  question.
+
+clear the path to making valuable discoveries that would be inaccessible if the information were presented in a different way
