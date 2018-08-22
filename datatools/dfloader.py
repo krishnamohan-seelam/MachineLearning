@@ -11,6 +11,15 @@ VALID_FORMATS = ["csv"]
 
 
 class DataFrameLoader():
+    """
+    Objective of this class to split dataframe into categorical & continuous frames.
+    Properties:
+    dataframe
+    categorical_features
+    continuous_features
+    continuous_dataframe
+    categorical_dataframe
+    """
 
     def __init__(self, *args, **kwargs):
         self.__dataframe = self.load_data(*args, **kwargs)
