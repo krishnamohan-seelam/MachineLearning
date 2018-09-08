@@ -69,7 +69,7 @@ class DataFrameLoader():
         _, extension = splitext(args[0])
         if extension[1:].lower() == 'csv':
             return self.load_csv(*args, **kwargs)
-       
+
     def load_csv(self, *args, **kwargs):
         """ returns panda dataframe  using *args, **kwargs .
         Args:
@@ -89,17 +89,3 @@ class DataFrameLoader():
         features = self.__dataframe.describe(include=[type]).columns.values
         features = features if features.any() else []
         return features
-
-
-def main():
-    loader = DataFrameLoader('train.csv', sep=',')
-    dataframe = loader.dataframe
-    print(dataframe.head())
-    print(loader.categorical_features)
-    print(loader.continuous_features)
-    print(loader.categorical_dataframe.head())
-    print(loader.continuous_dataframe.head())
-
-
-if __name__ == '__main__':
-    main()
