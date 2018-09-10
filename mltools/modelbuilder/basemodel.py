@@ -1,6 +1,6 @@
-class BaseModel():
+class BaseLoader():
     """
-    Abstract class for building machinelearning models
+    Abstract class for loading machinelearning datasets
     """
 
     def load_datasets(self,*args,**kwargs):
@@ -8,3 +8,12 @@ class BaseModel():
         Loads datasets for model  building
         """
         raise NotImplementedError
+    
+class BasePreprocessor():
+    """
+    Abstract class for preprocessing machinelearning datasets
+    """
+    def null_counter(self,*args,**kwargs):
+         
+         raise NotImplementedError
+     

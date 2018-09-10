@@ -3,12 +3,12 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from mltools.modelbuilder.basemodel import BaseModel
+from mltools.modelbuilder.basemodel import BaseLoader
 from mltools.modelbuilder.dfloader import DataFrameLoader
 import collections
 
 
-class SupervisedModel(BaseModel):
+class SupervisedDataLoader(BaseLoader):
 
     def __init__(self, train_file, test_file, response):
         self.__train_df, self.__testdf = self._load_datasets(
@@ -47,14 +47,11 @@ class SupervisedModel(BaseModel):
             print("kurtosis of response: {0}".format(response.kurtosis()))
         return plt
 
-    def get_feature_groups(self, is_training=True):
+    def get_feature_groups(self, dataset =None):
         numeric_features = category_features = []
-
-        if is_training:
-            numeric_features = self.__train_df.select_dtypes(
-                include=[np.number]).columns
-            category_features = self.__train_df.select_dtypes(
-                include=['object']).columns
+        dataset = self.__train_df if dataset is None  else dataset 
+        numeric_features = dataset.select_dtypes(include=[np.number]).columns
+        category_features = dataset.select_dtypes(include=['object']).columns
         return list(numeric_features), list(category_features)
 
     def convert_to_str(self, features, to='str'):
@@ -67,4 +64,4 @@ class SupervisedModel(BaseModel):
 
 
 if __name__ == '__main__':
-    sm = SupervisedModel(train_file='train', test_file='test', response="y")
+    sm = SupervisedDataLoader(train_file='train', test_file='test', response="y")

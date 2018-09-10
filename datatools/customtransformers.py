@@ -2,7 +2,7 @@ from scipy.stats import boxcox
 from sklearn.base import TransformerMixin
 from sklearn.preprocessing import Imputer
 import pandas as pd
-
+import numpy as np
 
 class OrdinalTransformer(TransformerMixin):
     """OrdinalTransformer :To transform panda data frame strings into numerical data
@@ -99,6 +99,20 @@ class BinCutterTransformer(TransformerMixin):
     def tranform(self, df):
         X = df.copy()
         X[self.col] = pd.cut(X[self.col], bins=self.bins, labels=self.labels)
+        return X
+
+    def fit(self, *_):
+        return self
+
+
+class LogTransformer(TransformerMixin):
+    def __init__(self, cols=None):
+        self.cols = cols
+
+    def transform(self, df):
+        X = df.copy()
+        for col in self.cols:
+            X[col] = np.log1p(X[col])
         return X
 
     def fit(self, *_):

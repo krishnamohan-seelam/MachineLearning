@@ -24,6 +24,7 @@ def load_imdb():
                     df = df.append([[txt, labels[l]]],ignore_index=True)
                     pbar.update()
     df.columns = ['review', 'sentiment']
+    np.random.seed(0)
     df = df.reindex(np.random.permutation(df.index))
     df.to_csv(outfile, index=False, encoding='utf-8')
 def main():

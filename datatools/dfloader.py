@@ -20,7 +20,8 @@ class DataFrameLoader():
     continuous_dataframe
     categorical_dataframe
     """
-
+    loaders   = { 'csv': 'load_csv'}
+    
     def __init__(self, *args, **kwargs):
         self.__dataframe = self.load_data(*args, **kwargs)
         self.__categorical_features = []
@@ -67,8 +68,13 @@ class DataFrameLoader():
         **kwargs:
         """
         _, extension = splitext(args[0])
-        if extension[1:].lower() == 'csv':
-            return self.load_csv(*args, **kwargs)
+        extension  = extension[1:].lower() 
+        return self._getloader(extension,*args, **kwargs)
+
+    def _getloader(self, extension,*args,**kwargs):
+        loader = self.loaders.get(extension,'load_csv')
+        if hasattr(self,loader):
+            return getattr(self,loader)(*args,**kwargs)
        
     def load_csv(self, *args, **kwargs):
         """ returns panda dataframe  using *args, **kwargs .
