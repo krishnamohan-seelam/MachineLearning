@@ -3,6 +3,7 @@ from sklearn.base import TransformerMixin
 from sklearn.preprocessing import Imputer
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 
 class OrdinalTransformer(TransformerMixin):
     """OrdinalTransformer :To transform panda data frame strings into numerical data
@@ -113,6 +114,20 @@ class LogTransformer(TransformerMixin):
         X = df.copy()
         for col in self.cols:
             X[col] = np.log1p(X[col])
+        return X
+
+    def fit(self, *_):
+        return self
+
+class StdScaleTransformer(TransformerMixin):
+    def __init__(self, cols=None,copy=True,with_mean=True,with_std=True):
+        self.cols = cols
+        self.scaler  = StandardScaler(copy=copy, with_mean=with_mean, with_std=with_std) 
+
+    def transform(self, df):
+        X = df.copy()
+        for col in self.cols:
+            X[col] =  self.scaler.fit_transform(X[[col]])
         return X
 
     def fit(self, *_):
