@@ -3,7 +3,8 @@ from sklearn.base import TransformerMixin
 from sklearn.preprocessing import Imputer
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+
 
 class OrdinalTransformer(TransformerMixin):
     """OrdinalTransformer :To transform panda data frame strings into numerical data
@@ -23,13 +24,13 @@ class OrdinalTransformer(TransformerMixin):
         returns transformed dataframe
         Args:
         df: pandas dataframe
-         
+
         """
         X = df.copy()
         X[self.col] = X[self.col].map(lambda x: self.ordering.index(x))
         return X
 
-    def fit(self, *_):
+    def fit(self, df, y=None):
         return self
 
 
@@ -40,7 +41,7 @@ class DummyTransformer(TransformerMixin):
     def transform(self, df):
         return pd.get_dummies(df, self.cols)
 
-    def fit(self, *_):
+    def fit(self, df, y=None):
         return self
 
 
@@ -56,7 +57,7 @@ class ImputeTransformer(TransformerMixin):
             X[col] = impute.fit_transform(X[[col]])
         return X
 
-    def fit(self, *_):
+    def fit(self, df, y=None):
         return self
 
 
@@ -64,7 +65,7 @@ class CategoryTransformer(TransformerMixin):
     def __init__(self, cols=None):
         self.cols = cols
 
-    def fit(self, *_):
+    def fit(self, df, y=None):
         return self
 
     def transform(self, df):
@@ -87,7 +88,7 @@ class BoxcoxTransformer(TransformerMixin):
                 X[col] = bc_transformed
         return X
 
-    def fit(self, *_):
+    def fit(self, df, y=None):
         return self
 
 
@@ -102,7 +103,7 @@ class BinCutterTransformer(TransformerMixin):
         X[self.col] = pd.cut(X[self.col], bins=self.bins, labels=self.labels)
         return X
 
-    def fit(self, *_):
+    def fit(self, df, y=None):
         return self
 
 
@@ -116,19 +117,47 @@ class LogTransformer(TransformerMixin):
             X[col] = np.log1p(X[col])
         return X
 
-    def fit(self, *_):
+    def fit(self, df, y=None):
         return self
 
-class StdScaleTransformer(TransformerMixin):
-    def __init__(self, cols=None,copy=True,with_mean=True,with_std=True):
+
+class MinMaxTransformer(TransformerMixin):
+    """
+    Transforms features by scaling each feature to a given range.
+    This estimator scales and translates each feature individually such that it
+     is in the given range on the training set, i.e. between zero and one.
+    Parameters:
+    cols : list of columns to be transformed
+    feature_range : tuple (min, max), default=(0, 1)
+    copy : boolean, optional, default True
+
+    """
+
+    def __init__(self, cols=None, feature_range=(0, 1), copy=True):
         self.cols = cols
-        self.scaler  = StandardScaler(copy=copy, with_mean=with_mean, with_std=with_std) 
+        self.minmax_sc = MinMaxScaler(feature_range, copy)
 
     def transform(self, df):
         X = df.copy()
         for col in self.cols:
-            X[col] =  self.scaler.fit_transform(X[[col]])
+            X[col] = self.minmax_sc.fit_transform(X[[col]])
         return X
 
-    def fit(self, *_):
+    def fit(self, df, y=None):
+        return self
+
+
+class StdScaleTransformer(TransformerMixin):
+    def __init__(self, cols=None, copy=True, with_mean=True, with_std=True):
+        self.cols = cols
+        self.scaler = StandardScaler(
+            copy=copy, with_mean=with_mean, with_std=with_std)
+
+    def transform(self, df, y=None):
+        X = df.copy()
+        for col in self.cols:
+            X[col] = self.scaler.fit_transform(X[[col]])
+        return X
+
+    def fit(self, df, y=None):
         return self
