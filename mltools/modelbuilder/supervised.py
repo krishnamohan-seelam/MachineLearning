@@ -26,6 +26,14 @@ class SupervisedDataLoader(BaseLoader):
         return self.__testdf
 
     def _load_datasets(self, train_file=None, test_file=None, sep=','):
+        """
+        Loads datasets based on input train file ,test file and returns dataframes
+        Parameters:
+        -----------
+        train_file: training dataset's file name
+        test_file : test dataset's file name
+        
+        """
         print("Loading train_file :{0}".format(train_file))
         train_dataframe = DataFrameLoader(train_file, sep).dataframe
         print("Loading test_file :{0}".format(test_file))
