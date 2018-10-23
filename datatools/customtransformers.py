@@ -3,7 +3,7 @@ from sklearn.base import TransformerMixin
 from sklearn.preprocessing import Imputer
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler,RobustScaler
 
 
 class OrdinalTransformer(TransformerMixin):
@@ -152,6 +152,20 @@ class StdScaleTransformer(TransformerMixin):
         self.cols = cols
         self.scaler = StandardScaler(
             copy=copy, with_mean=with_mean, with_std=with_std)
+
+    def transform(self, df, y=None):
+        X = df.copy()
+        for col in self.cols:
+            X[col] = self.scaler.fit_transform(X[[col]])
+        return X
+
+    def fit(self, df, y=None):
+        return self
+
+class RobustScaleTransformer(TransformerMixin):
+    def __init__(self, cols=None, copy=True, with_centering=True, with_scaling=True,quantile_range=(25.0, 75.0)):
+        self.cols = cols
+        self.scaler = RobustScaler(with_centering=True, with_scaling=True, quantile_range=(25.0, 75.0), copy=True)
 
     def transform(self, df, y=None):
         X = df.copy()
