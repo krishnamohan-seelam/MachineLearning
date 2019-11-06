@@ -124,7 +124,7 @@ def detect_outliers(dataset , noutliers , columns):
         outlier_indices.extend(outlier_list_col)
 
     outlier_indices = Counter(outlier_indices)
-
+ 
     multiple_outliers = list(k for k , v in outlier_indices.items()
                              if v > noutliers)
 
@@ -162,6 +162,33 @@ def one_hot_dataframe(data,columns,replace=False):
         data = data.drop(columns, axis=1)
         data = data.join(vector_data)
     return data,vector_data
+
+
+def plot_learning_curve(train_sizes, train_scores, validation_scores, scoring='neg_mean_squared_error', ylim=(0,50)):
+    plt.style.use('seaborn')
+    plt.figure()
+    plt.title("Learning Curve")
+    train_scores_mean = np.mean(train_scores, axis=1)
+    train_scores_std = np.std(train_scores, axis=1)
+    validation_scores_mean = np.mean(validation_scores, axis=1)
+    validation_scores_std = np.std(validation_scores, axis=1)
+    if scoring == 'neg_mean_squared_error':
+        train_scores_mean = -train_scores_mean
+        validation_scores_mean = -validation_scores_mean
+    plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
+                     train_scores_mean + train_scores_std, alpha=0.1,
+                     color="r")
+    plt.fill_between(train_sizes, validation_scores_mean - validation_scores_std,
+                     validation_scores_mean + validation_scores_std, alpha=0.1, color="g")
+    
+    plt.plot(train_sizes, train_scores_mean, 'o-', color="r",label="Training score")
+    plt.plot(train_sizes, validation_scores_mean, 'o-', color="g", label="Cross-validation score")
+    if ylim:
+        plt.ylim(ylim)
+    else:
+        plt.ylim(max(-3, validation_scores_mean.min() - .1), train_scores_mean.max() + .1)
+    plt.legend(loc="best")
+    plt.show()
 
 class DataFrameSelector(BaseEstimator , TransformerMixin):
     def __init__(self , attribute_names):

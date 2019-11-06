@@ -3,7 +3,7 @@ class BaseLoader():
     Abstract class for loading machinelearning datasets
     """
 
-    def load_datasets(self,*args,**kwargs):
+    def load(self,*args,**kwargs):
         """
         Loads datasets for model  building
         """

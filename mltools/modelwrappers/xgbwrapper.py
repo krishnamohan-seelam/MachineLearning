@@ -11,5 +11,8 @@ class XgBoostWrapper(object):
         dtrain = xgb.DMatrix(x_train, label=y_train)
         self.gbdt = xgb.train(self.param, dtrain, self.nrounds)
     
+    def fit ( self,x_train, y_train):
+        self.train(x_train, y_train)
+        
     def predict(self, x):
         return self.gbdt.predict(xgb.DMatrix(x))

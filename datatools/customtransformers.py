@@ -4,7 +4,8 @@ from sklearn.preprocessing import Imputer
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler, MinMaxScaler,RobustScaler
-
+from scipy.special import boxcox1p  
+from sklearn.preprocessing import LabelEncoder
 
 class OrdinalTransformer(TransformerMixin):
     """OrdinalTransformer :To transform panda data frame strings into numerical data
@@ -175,3 +176,38 @@ class RobustScaleTransformer(TransformerMixin):
 
     def fit(self, df, y=None):
         return self
+
+class Boxcox1pTransformer(TransformerMixin):
+    def __init__(self, cols=None,lmbda = 0):
+        self.cols = cols
+        self.lmbda = lmbda 
+
+    def transform(self, df):
+        X = df.copy()
+        for col in self.cols:
+            bc_transformed = boxcox1p(X[col],self.lmbda)
+            X[col] = bc_transformed
+        return X
+
+    def fit(self, df, y=None):
+        return self
+
+class LabelTransformer(TransformerMixin):
+    def __init__(self, cols=None):
+        self.cols = cols
+        self.label_enc =  LabelEncoder()
+
+    def transform(self, df):
+        X = df.copy()
+        for col in self.cols:
+            X[col] = self.label_enc.fit_transform(X[col])
+        return X
+
+    def inverse_transform(self, df):
+        X = df.copy()
+        for col in self.cols:
+            X[col] = self.label_enc.inverse_transform(X[col])
+        return X
+
+    def fit(self, df, y=None):
+        return self    

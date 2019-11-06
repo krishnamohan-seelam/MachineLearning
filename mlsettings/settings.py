@@ -9,7 +9,13 @@ DEFAULT_FILENAME = r"D:\MachineLearning\mlsettings\mlconfig.json"
 DEFAULT_APP_ENV = "DEV"
 
 CONFIG_KEYS = ['ML_DATASOURCE', 'ML_PATH']
-
+import logging
+logger = logging.getLogger()
+fhandler = logging.FileHandler(filename='mylog.log', mode='a')
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
+fhandler.setFormatter(formatter)
+logger.addHandler(fhandler)
+logger.setLevel(logging.DEBUG)
 
 
 def load_app_config(filename=DEFAULT_FILENAME, app_env=DEFAULT_APP_ENV):
@@ -19,11 +25,9 @@ def load_app_config(filename=DEFAULT_FILENAME, app_env=DEFAULT_APP_ENV):
 
         if config_value in os.environ:
             sys.path.append(os.environ.get(config_value))
-            print("Adding {0}  to system path" \
-                  .format(os.environ.get(config_value)))
+            logger.info("Adding {0} to system path".format(os.environ.get(config_value)))
         else:
-            print("{0} not found in system path setting from config file"\
-                  .format(config_value))
+            logger.info("{0} not found in system path setting from config file".format(config_value))
             sys.path.append(config_dict[app_env][config_value])
 
 
@@ -46,9 +50,9 @@ def get_datafolder_path(data_path=APP_ML_DATA_PATH):
 def load_ml_path():
     if APP_ML_PATH in os.environ:
         sys.path.append(os.environ.get('ML_PATH'))
-        print("Adding {0}  to system path".format(os.environ.get('ML_PATH')))
+        logger.info("Adding {0}  to system path".format(os.environ.get('ML_PATH')))
         return True
     else:
-        print("{0} not found".format(APP_ML_PATH))
+        logger.info("{0} not found".format(APP_ML_PATH))
         sys.exit(-1)
         return False

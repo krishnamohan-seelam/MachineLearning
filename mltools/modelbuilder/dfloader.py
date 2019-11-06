@@ -26,9 +26,9 @@ class DataFrameLoader():
         self.__categorical_features = []
         self.__continuous_features = []
         if not self.__dataframe.empty:
-            self.__categorical_features = self.__get_features_by_type(
+            self.__categorical_features = self._get_features_by_type(
                 type="object")
-            self.__continuous_features = self.__get_features_by_type(
+            self.__continuous_features = self._get_features_by_type(
                 type=np.number)
 
     @property
@@ -44,7 +44,8 @@ class DataFrameLoader():
 
     @property
     def continuous_features(self):
-        """ returns continuous features of dataframe as popo list.
+        """ 
+        returns continuous features of dataframe as popo list.
         """
         return list(self.__continuous_features)
 
@@ -90,7 +91,7 @@ class DataFrameLoader():
 
         return dataframe
 
-    def __get_features_by_type(self, type):
+    def _get_features_by_type(self, type):
         features = self.__dataframe.describe(include=[type]).columns.values
         features = features if features.any() else []
         return features
