@@ -195,18 +195,22 @@ class Boxcox1pTransformer(TransformerMixin):
 class LabelTransformer(TransformerMixin):
     def __init__(self, cols=None):
         self.cols = cols
-        self.label_enc =  LabelEncoder()
+        self.label_encoders = {}
 
     def transform(self, df):
         X = df.copy()
         for col in self.cols:
-            X[col] = self.label_enc.fit_transform(X[col])
+            lbl_ec = LabelEncoder()
+            X[col] = lbl_ec.fit_transform(X[col])
+            self.label_encoders[col] = lbl_ec
         return X
 
     def inverse_transform(self, df):
         X = df.copy()
         for col in self.cols:
-            X[col] = self.label_enc.inverse_transform(X[col])
+            lbl_ec = self.label_encoders.get(col)
+            if lbl_ec:
+                X[col] = lbl_ec.inverse_transform(X[col])
         return X
 
     def fit(self, df, y=None):
