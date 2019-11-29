@@ -108,5 +108,17 @@ venv.bak/
 .vscode
 Study/
 output/
+PythonLearning/
+catboost_info/
 *.zip
 .DS_Store
+*.csv
+*.xlsx
+*.jpeg
+*.jpg
+*.png
+*.pdf
+*.gif
+*.svg
+
+*.csv

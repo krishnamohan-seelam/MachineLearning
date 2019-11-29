@@ -1,0 +1,13 @@
+0	Dependents	q
+1	Gender	q
+2	LoanAmount	q
+3	Property_Area	q
+4	EMI	q
+5	Balance_Income	q
+6	Graduate_with_BadCreditHistory	q
+7	Credit_History_0.0	q
+8	Credit_History_1.0	q
+9	Self_Employed_No	q
+10	Self_Employed_Yes	q
+11	HasCoApplicant_N	q
+12	HasCoApplicant_Y	q
