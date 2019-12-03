@@ -122,3 +122,4 @@ catboost_info/
 *.svg
 
 *.csv
+*.tmp
