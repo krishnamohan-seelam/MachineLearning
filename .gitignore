@@ -123,3 +123,6 @@ catboost_info/
 
 *.csv
 *.tmp
+*.lock
+*.log.txt
+AnacondaProjects/MachineLearning_Handbook/Regression/BigMartSales/catboost-hyperopt-log.txt
