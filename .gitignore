@@ -126,3 +126,4 @@ catboost_info/
 *.lock
 *.log.txt
 AnacondaProjects/MachineLearning_Handbook/Regression/BigMartSales/catboost-hyperopt-log.txt
+AnacondaProjects/MachineLearning_Handbook/Regression/BigMartSales/OldModels/*
