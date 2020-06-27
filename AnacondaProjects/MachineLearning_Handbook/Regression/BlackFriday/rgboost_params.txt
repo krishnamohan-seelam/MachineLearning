@@ -1,0 +1,2 @@
+Parmas {'n_estimators': 350, 'max_depth': 8, 'learning_rate': 0.09788675438045574} - 2540.142323482017
+Parmas {'n_estimators': 950, 'max_depth': 8, 'learning_rate': 0.11073028178063032} - 2521.51521837453

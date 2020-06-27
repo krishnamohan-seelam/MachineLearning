@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme description="" title="" version="2.0">
+	<nodes>
+		<node id="0" name="CSV File Import" position="(-300, 0)" project_name="Orange3" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" title="CSV File Import" version="" />
+		<node id="1" name="Preprocess" position="(-89.0, -4.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owpreprocess.OWPreprocess" title="Preprocess" version="" />
+		<node id="2" name="Save Data" position="(154.0, -7.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owsave.OWSave" title="Save Data" version="" />
+	</nodes>
+	<links>
+		<link enabled="true" id="0" sink_channel="Data" sink_node_id="1" source_channel="Data" source_node_id="0" />
+		<link enabled="true" id="1" sink_channel="Data" sink_node_id="2" source_channel="Preprocessed Data" source_node_id="1" />
+	</links>
+	<annotations />
+	<thumbnail />
+	<node_properties>
+		<properties format="literal" node_id="0">{'_session_items': [('D:/MachineLearning/AnacondaProjects/MachineLearning_Handbook/Regression/BigMartSales/train.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 12, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''})], 'controlAreaVisible': True, 'dialog_state': {'directory': 'D:/MachineLearning/AnacondaProjects/MachineLearning_Handbook/Regression/BigMartSales', 'filter': 'Text - comma separated (*.csv, *)'}, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\x15\x00\x00\x00\xb7\x00\x00\x03@\x00\x00\x02\x13\x00\x00\x02\x1d\x00\x00\x00\xd6\x00\x00\x038\x00\x00\x02\x0b\x00\x00\x00\x00\x00\x00\x00\x00\x05V', '__version__': 1}</properties>
+		<properties format="pickle" node_id="1">gAN9cQAoWAoAAABhdXRvY29tbWl0cQGIWBIAAABjb250cm9sQXJlYVZpc2libGVxAohYEwAAAHNh
+dmVkV2lkZ2V0R2VvbWV0cnlxA0MyAdnQywACAAAAAAD7AAAAWAAABFsAAAJyAAABAwAAAHcAAART
+AAACagAAAAAAAAAABVZxBFgOAAAAc3RvcmVkc2V0dGluZ3NxBX1xBihYBAAAAG5hbWVxB1gAAAAA
+cQhYDQAAAHByZXByb2Nlc3NvcnNxCV1xCihYGAAAAG9yYW5nZS5wcmVwcm9jZXNzLmltcHV0ZXEL
+fXEMhnENWBwAAABvcmFuZ2UucHJlcHJvY2Vzcy5jb250aW51aXplcQ59cQ9YFQAAAG11bHRpbm9t
+aWFsX3RyZWF0bWVudHEQY2J1aWx0aW5zCmdldGF0dHIKcRFjT3JhbmdlLnByZXByb2Nlc3MucHJl
+cHJvY2VzcwpDb250aW51aXplCnESWBQAAABNdWx0aW5vbWlhbFRyZWF0bWVudHEThnEUUnEVSwGF
+cRZScRdzhnEYZXVYCwAAAF9fdmVyc2lvbl9fcRlLAnUu
+</properties>
+		<properties format="literal" node_id="2">{'add_type_annotations': True, 'auto_save': True, 'controlAreaVisible': True, 'filename': 'C:/Users/krish/ows_train.csv', 'filter': 'Comma-separated values (*.csv)', 'last_dir': 'C:/Users/krish', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02=\x00\x00\x01\x18\x00\x00\x03\x1b\x00\x00\x01\xb2\x00\x00\x02E\x00\x00\x017\x00\x00\x03\x13\x00\x00\x01\xaa\x00\x00\x00\x00\x00\x00\x00\x00\x05V', '__version__': 2}</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>
