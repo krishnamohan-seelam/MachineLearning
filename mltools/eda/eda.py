@@ -1,8 +1,20 @@
 from scipy.stats import chi2_contingency
 from scipy import stats
-""" EDA - Helper functions to  aid data analysis"""
+from warnings import warn
+
+import numpy as np
 import pandas as pd
 
+
+""" EDA - Helper functions to  aid data analysis"""
+
+
+def extended_describe(dataframe):
+    extended_describe_df= dataframe.describe(include='all').T 
+    extended_describe_df['null_count']= dataframe.isnull().sum()
+    extended_describe_df['unique_count'] = dataframe.apply(lambda x: len(x.unique()))
+    return extended_describe_df 
+	
 
 def null_analysis(dataframe):
     """
@@ -15,12 +27,42 @@ def null_analysis(dataframe):
     null_count = null_count[null_count != 0]
     # calculate null percentages
     null_percent = null_count / len(dataframe) * 100
-    null_table = pd.concat(
-        [pd.DataFrame(null_count), pd.DataFrame(null_percent)], axis=1)
+    null_table = pd.concat([null_count, null_percent], axis=1)
     null_table.columns = ['counts', 'percentage']
     null_table.sort_values('counts', ascending=False, inplace=True)
     return null_table
 
+
+def add_col_denote_nan(data,nan_cols=[]):
+    """
+    creating an additional variable indicating whether the data 
+    was missing for that observation (1) or not (0).
+    """
+  
+    data_copy = data.copy(deep=True)
+    for nan_col in nan_cols:
+        if data_copy[nan_col].isnull().sum()>0:
+            data_copy[nan_col+'_is_NA'] = np.where(data_copy[nan_col].isnull(),1,0)
+        else:
+            warn("Column %s has no missing cases" % nan_col)
+            
+    return data_copy
+	
+	
+def impute_nan_with_end_of_distribution(data,nan_cols=[]):
+    """
+    replacing the NA by values that are at the far end of the distribution of that variable
+    calculated by mean + 3*std
+    """
+    
+    data_copy = data.copy(deep=True)
+    for nan_col in nan_cols:
+        if data_copy[nan_col].isnull().sum()>0:
+            data_copy[nan_col+'_impute_end_of_distri'] = data_copy[nan_col].fillna(data[nan_col].mean()+3*data[nan_col].std())
+        else:
+            warn("Column %s has no missing" % nan_col)
+    return data_copy            
+	
 
 def anova(frame, categorical_features, target):
     """
